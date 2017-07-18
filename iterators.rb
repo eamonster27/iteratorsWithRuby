@@ -51,23 +51,40 @@ def sum_of_squares(numbers)
     sum = sum + x
   end
   sum
-
 end
 
 # Return a new array of the ordinals (1 -> 1st) of the numbers given.
 def ordinals(numbers)
-  ordinals = numbers.map do |x|
-    x = x.to_s
-    if(x[x.length-1] == "1")
-      x = "#{x}st"
-    elsif(x[x.length-1] == "2")
-      x = "#{x}nd"
-    elsif(x[x.length-1] == "3")
-      x = "#{x}rd"
-    elsif(x == '11')
-      x = "#{x}th"
+  rules = {
+    1 => 'st',
+    2 => 'nd',
+    3 => 'rd'
+  }
+  # Exceptions: 11th, 12th, 13th, 0th
+
+  numbers.map do |n|
+    if n == 11 || n == 12 || n == 13 || n == 0
+      "#{n}th"
     else
-      x = "#{x}th"
+      last_digit = n % 10
+      predicate = rules[last_digit] || "th"
+      n.to_s + predicate
     end
   end
+
+  # numbers.map do |x|
+  #   x = x.to_s
+  #   if(x[x.length-1] == "1")
+  #     x = "#{x}st"
+  #   elsif(x[x.length-1] == "2")
+  #     x = "#{x}nd"
+  #   elsif(x[x.length-1] == "3")
+  #     x = "#{x}rd"
+  #   elsif(x == '11')
+  #     x = "#{x}th"
+  #   else
+  #     x = "#{x}th"
+  #   end
+  # end
+
 end
